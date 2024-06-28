@@ -10,12 +10,14 @@ import toast, { Toaster } from "react-hot-toast";
 export default function Product({ params }) {
    const { data, isLoading, error } = useGetProductByIdQuery(`${params.id}`);
 
-   const [updateCart, { isLoading: isUpdating }] = useUpdateCartMutation();
+   const [updateCart, { isLoading: isUpdating, error: updateCartError }] =
+      useUpdateCartMutation();
 
-   const notify = () => toast("Here is your toast.");
+   updateCartError && toast("something went wrong!");
 
    const handleClick = () => {
       try {
+         console.log(updateCartError);
          updateCart(params.id, {
             products: [
                {
@@ -23,18 +25,23 @@ export default function Product({ params }) {
                   quantity: 1,
                },
             ],
-         }).then((res) => {
-            toast("cart updated! ✔️");
-            console.log(res);
-         });
+         })
+            .unwrap()
+            .then((res) => {
+               console.log(res);
+               toast("cart updated");
+            });
       } catch (err) {
-         console.log("something went wrong");
+         toast("something went wrong!");
       }
    };
 
+   error && "something went wrong";
+   isLoading && "is loading";
    return (
       <div className="bg-gray-300 h-[100vh]">
          <Toaster />
+
          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             <Link href="/products">Back to Products</Link>
          </button>
