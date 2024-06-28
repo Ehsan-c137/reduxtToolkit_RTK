@@ -4,6 +4,7 @@ import { useGetProductByIdQuery } from "@/services/product/productApi";
 import { useUpdateCartMutation } from "@/services/cart/cartApi";
 import { useAppDispatch } from "@/lib/hooks";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Product({ params }) {
    const { data, isLoading, error } = useGetProductByIdQuery(`${params.id}`);
@@ -27,7 +28,10 @@ export default function Product({ params }) {
 
    return (
       <div>
-         <div className="flex flex-col space-y-8  min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-gray-300">
+         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <Link href="/products">Back to Products</Link>
+         </button>
+         <div className="flex flex-col space-y-8  animated fadeIn faster justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-gray-300">
             <div className="block rounded-lg bg-white w-72 mt-32">
                <div
                   className="relative overflow-hidden bg-cover bg-no-repeat"
