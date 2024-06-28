@@ -5,33 +5,40 @@ import { useUpdateCartMutation } from "@/services/cart/cartApi";
 import { useAppDispatch } from "@/lib/hooks";
 import Image from "next/image";
 import Link from "next/link";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Product({ params }) {
    const { data, isLoading, error } = useGetProductByIdQuery(`${params.id}`);
 
    const [updateCart, { isLoading: isUpdating }] = useUpdateCartMutation();
 
-   const handleClick = async () => {
+   const notify = () => toast("Here is your toast.");
+
+   const handleClick = () => {
       try {
-         await updateCart(params.id, {
+         updateCart(params.id, {
             products: [
                {
                   id: 1,
                   quantity: 1,
                },
             ],
-         }).then((res) => console.log(res));
+         }).then((res) => {
+            toast("cart updated! ✔️");
+            console.log(res);
+         });
       } catch (err) {
          console.log("something went wrong");
       }
    };
 
    return (
-      <div>
+      <div className="bg-gray-300 h-[100vh]">
+         <Toaster />
          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             <Link href="/products">Back to Products</Link>
          </button>
-         <div className="flex flex-col space-y-8  animated fadeIn faster justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-gray-300">
+         <div className="flex flex-col space-y-8  animated fadeIn faster justify-center items-center inset-0 z-50 outline-none focus:outline-none ">
             <div className="block rounded-lg bg-white w-72 mt-32">
                <div
                   className="relative overflow-hidden bg-cover bg-no-repeat"
