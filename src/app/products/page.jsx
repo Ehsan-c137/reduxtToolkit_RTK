@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Product() {
    const { data, isLoading, isError } = useGetAllProductsQuery();
-   console.log(data?.products);
+   
    return (
       <div className="p-4">
          <h1>All Product</h1>
