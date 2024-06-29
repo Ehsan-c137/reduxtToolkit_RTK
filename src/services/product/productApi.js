@@ -11,4 +11,14 @@ const productApi = api.injectEndpoints({
    }),
 });
 
-export const { useGetAllProductsQuery, useGetProductByIdQuery } = productApi;
+// Export hooks for usage in functional components
+export const {
+   useGetAllProductsQuery,
+   useGetProductByIdQuery,
+   util: { getRunningQueriesThunk },
+} = productApi;
+
+// export endpoints for use in SSR
+export const { getAllProducts, getProductById } = productApi.endpoints;
+
+export default productApi;
