@@ -16,10 +16,9 @@ async function getData() {
 }
 
 export default async function Product() {
-   // const { data, isLoading, isError } = useGetAllProductsQuery();
    const data = await getData();
    return (
-      <div className="p-4">
+      <div className="p-4 flex flex-col gap-4">
          <h1>All Product</h1>
          <div className="flex">
             {/* {isLoading && "loading.."}
