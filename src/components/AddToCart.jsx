@@ -1,10 +1,32 @@
 "use client";
 import React from "react";
+import { useUpdateCartMutation } from "@/services/cart/cartApi";
+import toast from "react-hot-toast";
 
 const AddToCart = () => {
-   const handleClick = () => {
-      console.log("clicked");
+   const [updateCart, { isLoading, error: updateCartError }] =
+      useUpdateCartMutation();
+
+   const handleClick = async () => {
+      try {
+         updateCart(params.id, {
+            products: [
+               {
+                  id: 1,
+                  quantity: 1,
+               },
+            ],
+         })
+            .unwrap()
+            .then((res) => {
+               console.log(res);
+               toast("cart updated");
+            });
+      } catch (err) {
+         toast("something went wrong!");
+      }
    };
+
    return (
       <button
          onClick={() => handleClick()}
