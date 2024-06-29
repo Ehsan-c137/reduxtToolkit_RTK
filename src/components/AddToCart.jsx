@@ -3,13 +3,13 @@ import React from "react";
 import { useUpdateCartMutation } from "@/services/cart/cartApi";
 import toast from "react-hot-toast";
 
-const AddToCart = () => {
-   const [updateCart, { isLoading, error: updateCartError }] =
+const AddToCart = (id) => {
+   const [updateCart, { isLoading: isUpdating, error: updateCartError }] =
       useUpdateCartMutation();
 
    const handleClick = async () => {
       try {
-         updateCart(params.id, {
+         updateCart(id.id, {
             products: [
                {
                   id: 1,

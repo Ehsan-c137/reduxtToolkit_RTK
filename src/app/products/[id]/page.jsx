@@ -31,10 +31,8 @@ export default async function Page(props) {
 
    // updateCartError && toast("something went wrong!");
 
-   // console.log(GetByName());
-
    return (
-      <div className="bg-gray-300 h-[100vh] p-4">
+      <div className="h-[100vh] bg-gray-300  p-4">
          <Toaster />
 
          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -115,7 +113,7 @@ export default async function Page(props) {
                         {data?.price}$
                      </span>
 
-                     <AddToCart />
+                     <AddToCart id={props.params.id} />
                   </div>
                </div>
             </div>
