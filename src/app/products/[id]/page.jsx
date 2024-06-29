@@ -1,43 +1,60 @@
-"use client";
-
 import { useGetProductByIdQuery } from "@/services/product/productApi";
 import { useUpdateCartMutation } from "@/services/cart/cartApi";
 import { useAppDispatch } from "@/lib/hooks";
 import Image from "next/image";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
+import AddToCart from "@/components/AddToCart";
 
-export default function Product({ params }) {
-   const { data, isLoading, error } = useGetProductByIdQuery(`${params.id}`);
+async function getData(id) {
+   const res = await fetch(`https://dummyjson.com/products/${id}`, {
+      headers: {
+         "Content-Type": "application/json",
+      },
+   });
+   if (!res.ok) {
+      console.log(res);
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error("Failed to fetch data");
+   }
 
-   const [updateCart, { isLoading: isUpdating, error: updateCartError }] =
-      useUpdateCartMutation();
+   return res.json();
+}
 
-   updateCartError && toast("something went wrong!");
+export default async function Page(props) {
+   const data = await getData(props.params.id);
+   console.log(data);
 
-   const handleClick = () => {
-      try {
-         console.log(updateCartError);
-         updateCart(params.id, {
-            products: [
-               {
-                  id: 1,
-                  quantity: 1,
-               },
-            ],
-         })
-            .unwrap()
-            .then((res) => {
-               console.log(res);
-               toast("cart updated");
-            });
-      } catch (err) {
-         toast("something went wrong!");
-      }
-   };
+   // const { data, isLoading, error } = useGetProductByIdQuery(`${params.id}`);
+   // const [updateCart, { isLoading: isUpdating, error: updateCartError }] =
+   //    useUpdateCartMutation();
+   // const { data } = GetProductById();
 
-   error && "something went wrong";
-   isLoading && "is loading";
+   // updateCartError && toast("something went wrong!");
+
+   // console.log(GetByName());
+
+   // const handleClick = () => {
+   //    try {
+   //       console.log(updateCartError);
+   //       updateCart(params.id, {
+   //          products: [
+   //             {
+   //                id: 1,
+   //                quantity: 1,
+   //             },
+   //          ],
+   //       })
+   //          .unwrap()
+   //          .then((res) => {
+   //             console.log(res);
+   //             toast("cart updated");
+   //          });
+   //    } catch (err) {
+   //       toast("something went wrong!");
+   //    }
+   // };
+
    return (
       <div className="bg-gray-300 h-[100vh]">
          <Toaster />
@@ -80,12 +97,7 @@ export default function Product({ params }) {
                      Price: {data?.price}
                   </h5>
                </div>
-               <button
-                  onClick={() => handleClick()}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-               >
-                  add to cart
-               </button>
+               <AddToCart />
             </div>
          </div>
       </div>
