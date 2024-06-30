@@ -28,7 +28,7 @@ const AddToCart = (id) => {
                updatedCart.cartList = res.products
                updatedCart.totlalProduct = res.totalProducts
                updatedCart.totalQuantity = res.totalQuantity
-               dispatch(addToCart(updatedCart))
+               dispatch(addToCart(id))
                toast("cart updated");
             });
          
