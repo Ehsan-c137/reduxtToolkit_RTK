@@ -1,10 +1,9 @@
 import AddToCart from "@/components/AddToCart";
 import { Getsubtotal } from "@/lib/getSubtotal";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice,current } from "@reduxjs/toolkit";
 
 const initialState = {
     cartList: [],
-    subtotal: 0,
 }
 
 const cartSlice = createSlice({
@@ -12,18 +11,26 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart(state,action){
-            console.log(action.payload)
-            const updateRes = action.payload
-            state.cartList = updateRes.cartList
-            state.subtotal = Getsubtotal(updateRes.cartList)
+            const {id} = action.payload
+            const cartItemIndex = state.cartList.findIndex(item => item.id === Number(id))
+            
+            console.log(current(state.cartList))
+            if(cartItemIndex === -1){
+                state.cartList.push({
+                    id: Number(id),
+                    quantity: 1,
+                })
+            } else {                
+                state.cartList[cartItemIndex].quantity += 1
+                
+            }
+            console.log(state.cartList)
         },
         removeFromCart(state,action){
-            state.cartList = state.cartList.filter((item)=> item.id !== action.payload)
-            state.subtotal = Getsubtotal(state.cartList)
+            state.cartList = state.cartList.filter((item)=> item.data.id !== action.payload)            
         },
         removeAllCartItems(state){
             state.cartList = []
-            state.subtotal = Getsubtotal(state.cartList)
         }
     }
 })
