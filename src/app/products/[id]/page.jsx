@@ -6,7 +6,7 @@ import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
 import AddToCart from "@/components/AddToCart";
 
-async function getData(id) {
+async function getProductById(id) {
    const res = await fetch(`https://dummyjson.com/products/${id}`, {
       headers: {
          "Content-Type": "application/json",
@@ -22,7 +22,7 @@ async function getData(id) {
 }
 
 export default async function Page(props) {
-   const data = await getData(props.params.id);
+   const data = await getProductById(props.params.id);
 
    // const { data, isLoading, error } = useGetProductByIdQuery(`${params.id}`);
    // const [updateCart, { isLoading: isUpdating, error: updateCartError }] =
