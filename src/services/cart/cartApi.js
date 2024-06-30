@@ -14,6 +14,9 @@ export const cartApi = api.injectEndpoints({
             };
          },
       }),
+      getCart: builder.query({
+         query: (id)=> 'carts/id'
+      })
    }),
 });
 
