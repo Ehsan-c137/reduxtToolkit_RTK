@@ -2,12 +2,17 @@
 import React from "react";
 import { useUpdateCartMutation } from "@/services/cart/cartApi";
 import toast from "react-hot-toast";
+import { addToCart } from "@/services/cart/cartSlice";
+import { useAppDispatch } from "@/lib/hooks";
+import { useDispatch } from "react-redux";
 
 const AddToCart = (id) => {
+   const dispatch = useDispatch()
    const [updateCart, { isLoading: isUpdating, error: updateCartError }] =
       useUpdateCartMutation();
+   
 
-   const handleClick = async () => {
+   const handleClick = () => {
       try {
          updateCart(id.id, {
             products: [
@@ -19,12 +24,18 @@ const AddToCart = (id) => {
          })
             .unwrap()
             .then((res) => {
-               console.log(res);
+               const updatedCart = {}
+               updatedCart.cartList = res.products
+               updatedCart.totlalProduct = res.totalProducts
+               updatedCart.totalQuantity = res.totalQuantity
+               dispatch(addToCart(updatedCart))
                toast("cart updated");
             });
+         
       } catch (err) {
          toast("something went wrong!");
       }
+      
    };
 
    return (
