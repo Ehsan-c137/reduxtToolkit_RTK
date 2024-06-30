@@ -8,11 +8,12 @@ export function Cart() {
     const subTotal = useSelector((state)=> state.cart.subtotal)
     const cartList = useSelector((state)=> state.cart.cartList)
     console.log(cartList)
+
     return (<Card className="p-4 max-w-xl w-[450px]">
       <div className="mb-4 flex items-center justify-between">
         <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Shopping Cart</h5>
         <h5  className="text-md font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-          {subTotal}{' '}$
+          {subTotal?.toFixed(2)}{' '}$
         </h5>
       </div>
       <div className="flow-root">
