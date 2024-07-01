@@ -13,28 +13,30 @@ const AddToCart = (id) => {
    
 
    const handleClick = () => {
-      try {
-         updateCart(id.id, {
-            products: [
-               {
-                  id: 1,
-                  quantity: 1,
-               },
-            ],
-         })
-            .unwrap()
-            .then((res) => {
-               const updatedCart = {}
-               updatedCart.cartList = res.products
-               updatedCart.totlalProduct = res.totalProducts
-               updatedCart.totalQuantity = res.totalQuantity
-               dispatch(addToCart(id))
-               toast("cart updated");
-            });
+      dispatch(addToCart(id))
+      toast('cart updated')
+      // try {
+      //    updateCart(id.id, {
+      //       products: [
+      //          {
+      //             id: 1,
+      //             quantity: 1,
+      //          },
+      //       ],
+      //    })
+      //       .unwrap()
+      //       .then((res) => {
+      //          const updatedCart = {}
+      //          updatedCart.cartList = res.products
+      //          updatedCart.totlalProduct = res.totalProducts
+      //          updatedCart.totalQuantity = res.totalQuantity
+      //          // dispatch(addToCart(id))
+      //          toast("cart updated");
+      //       });
          
-      } catch (err) {
-         toast("something went wrong!");
-      }
+      // } catch (err) {
+      //    toast("something went wrong!");
+      // }
       
    };
 
