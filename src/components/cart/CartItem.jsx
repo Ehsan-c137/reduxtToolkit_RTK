@@ -7,42 +7,32 @@ const CartItem = ({ id, quantity }) => {
 
   return (
     <li className="py-3 sm:py-4">
-      <div
-        className={`flex items-center space-x-4 ${
-          isLoading && "justify-between"
-        }`}
-      >
+      <div className={`flex items-center space-x-4`}>
         {isLoading ? (
           <Spinner />
         ) : (
-          <div className="shrink-0">
-            <Image
-              alt={data?.title}
-              height="64"
-              src={data?.thumbnail}
-              width="64"
-              className="rounded-full"
-            />
-          </div>
-        )}
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium text-gray-900 dark:text-white">
-              {data?.title}
-            </p>
-            <p className="truncate text-sm text-gray-500 dark:text-gray-400">
-              {`${data?.price}$ - x${quantity}`}
-            </p>
-          </div>
-        )}
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-            {`$ ${data?.price * quantity}`}
-          </div>
+          <>
+            <div className="shrink-0">
+              <Image
+                alt={data?.title}
+                height="64"
+                src={data?.thumbnail}
+                width="64"
+                className="rounded-full"
+              />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-medium text-gray-900 dark:text-white">
+                {data?.title}
+              </p>
+              <p className="truncate text-sm text-gray-500 dark:text-gray-400">
+                {`${data?.price}$ - x${quantity}`}
+              </p>
+            </div>
+            <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+              {`$ ${data?.price * quantity}`}
+            </div>
+          </>
         )}
       </div>
     </li>
