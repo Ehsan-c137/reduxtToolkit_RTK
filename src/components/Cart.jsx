@@ -5,21 +5,48 @@ import Image from "next/image"
 import Link from "next/link"
 import { useGetProductByIdQuery } from "@/services/product/productApi"
 import { Getsubtotal } from "@/lib/getSubtotal"
-
+import { useState } from "react"
 
 export function Cart() {
-    
+    // const [products,setProducts] = useState([])
     const cartList = useSelector((state)=> state.cart.cartList)
     let subTotal = 0
  
-    const products = cartList.map( item => {      
-      const {data} =  useGetProductByIdQuery(item.id)
-      const total = data?.price * item.quantity
-      const price = data?.price;
-      const quantity = item?.quantity;
-      const thumbnail = data?.thumbnail
-      const title = data?.title
-      subTotal += (price * quantity) ;
+    const allProducts = Promise.all(cartList.map((item)=> useGetProductByIdQuery(item.id)))
+
+    // allProducts.then((data)=>{
+    //   data.map((i)=>{
+    //     const total = i?.price * item.quantity
+    //     const price = i?.price;
+    //     const quantity = item?.quantity;
+    //     const thumbnail = i?.thumbnail
+    //     const title = i?.title
+    //     subTotal += (price * quantity);
+    //     console.log(data)
+    //     setProducts((prevState)=> [...prevState,{
+    //       total,
+    //       price,
+    //       quantity,
+    //       thumbnail,
+    //       title,
+    //     }])
+
+    //   })
+    // })
+    const helperGet = (id) =>{
+      const {data} = useGetProductByIdQuery(id)
+      return data;
+    }
+
+    const products = cartList.map( item => {
+        const data =  helperGet(item.id)
+        const total = data?.price * item.quantity
+        const price = data?.price;
+        const quantity = item?.quantity;
+        const thumbnail = data?.thumbnail
+        const title = data?.title
+        subTotal += (price * quantity);
+      
       return {        
         quantity,
         title,
