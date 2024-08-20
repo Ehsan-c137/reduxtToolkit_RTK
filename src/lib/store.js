@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import productApi from "@/services/product/productApi";
 import cartApi from "@/services/cart/cartApi";
+import cartReducer from "@/services/cart/cartSlice";
 import { createWrapper } from "next-redux-wrapper";
 
 export const makeStore = () => {
    return configureStore({
       reducer: {
+         cart: cartReducer,         
          [productApi.reducerPath]: productApi.reducer,
          [cartApi.reducerPath]: cartApi.reducer,
       },

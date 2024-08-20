@@ -2,29 +2,42 @@
 import React from "react";
 import { useUpdateCartMutation } from "@/services/cart/cartApi";
 import toast from "react-hot-toast";
+import { addToCart } from "@/services/cart/cartSlice";
+import { useAppDispatch } from "@/lib/hooks";
+import { useDispatch } from "react-redux";
 
 const AddToCart = (id) => {
+   const dispatch = useDispatch()
    const [updateCart, { isLoading: isUpdating, error: updateCartError }] =
       useUpdateCartMutation();
+   
 
-   const handleClick = async () => {
-      try {
-         updateCart(id.id, {
-            products: [
-               {
-                  id: 1,
-                  quantity: 1,
-               },
-            ],
-         })
-            .unwrap()
-            .then((res) => {
-               console.log(res);
-               toast("cart updated");
-            });
-      } catch (err) {
-         toast("something went wrong!");
-      }
+   const handleClick = () => {
+      dispatch(addToCart(id))
+      toast('cart updated')
+      // try {
+      //    updateCart(id.id, {
+      //       products: [
+      //          {
+      //             id: 1,
+      //             quantity: 1,
+      //          },
+      //       ],
+      //    })
+      //       .unwrap()
+      //       .then((res) => {
+      //          const updatedCart = {}
+      //          updatedCart.cartList = res.products
+      //          updatedCart.totlalProduct = res.totalProducts
+      //          updatedCart.totalQuantity = res.totalQuantity
+      //          // dispatch(addToCart(id))
+      //          toast("cart updated");
+      //       });
+         
+      // } catch (err) {
+      //    toast("something went wrong!");
+      // }
+      
    };
 
    return (

@@ -14,9 +14,12 @@ export const cartApi = api.injectEndpoints({
             };
          },
       }),
+      getCart: builder.query({
+         query: (id)=> `carts/${id}`
+      })
    }),
 });
 
-export const { useUpdateCartMutation } = cartApi;
+export const { useUpdateCartMutation, useGetCartQuery } = cartApi;
 
 export default cartApi;

@@ -19,6 +19,6 @@ export const {
 } = productApi;
 
 // export endpoints for use in SSR
-export const { getAllProducts, getProductById } = productApi.endpoints;
+export const { useGetAllProducts, useGetProductById } = productApi.endpoints;
 
 export default productApi;
