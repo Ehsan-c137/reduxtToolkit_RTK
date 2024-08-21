@@ -18,7 +18,7 @@ export const {
    util: { getRunningQueriesThunk },
 } = productApi;
 
-// export endpoints for use in SSR
-export const { useGetAllProducts, useGetProductById } = productApi.endpoints;
+// // export endpoints for use in SSR
+// export const { useGetAllProducts, useGetProductById } = productApi.endpoints;
 
 export default productApi;

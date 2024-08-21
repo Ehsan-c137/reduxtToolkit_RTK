@@ -3,7 +3,7 @@ import api from "../api";
 export const cartApi = api.injectEndpoints({
    endpoints: (builder) => ({
       updateCart: builder.mutation({
-         query: (id, body) => {
+         query: ({ id, body }) => {
             return {
                method: "PUT",
                body: {
@@ -15,8 +15,8 @@ export const cartApi = api.injectEndpoints({
          },
       }),
       getCart: builder.query({
-         query: (id)=> `carts/${id}`
-      })
+         query: (id) => `carts/${id}`,
+      }),
    }),
 });
 
