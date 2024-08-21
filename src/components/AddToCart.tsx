@@ -6,7 +6,7 @@ import { addToCart } from "@/services/cart/cartSlice";
 import { useAppDispatch } from "@/lib/hooks";
 import { useDispatch } from "react-redux";
 
-const AddToCart = (id: string | number) => {
+const AddToCart = (id: number) => {
    const dispatch = useDispatch();
    const [updateCart, { isLoading: isUpdating, error: updateCartError }] =
       useUpdateCartMutation();
