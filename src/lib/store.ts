@@ -1,17 +1,18 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import productApi from "../services/product/productApi";
 import cartApi from "../services/cart/cartApi";
 import cartReducer from "../services/cart/cartSlice";
 import { createWrapper } from "next-redux-wrapper";
 
+const rootReducer = combineReducers({
+   [productApi.reducerPath]: productApi.reducer,
+   [cartApi.reducerPath]: cartApi.reducer,
+   cart: cartReducer,
+});
+
 export const makeStore = () => {
-   const cartApiReducerPath = cartApi.reducerPath;
    return configureStore({
-      reducer: {
-         cart: cartReducer,
-         [productApi.reducerPath]: productApi.reducer,
-         cartApiReducerPath: cartApi.reducer,
-      },
+      reducer: rootReducer,
       // Adding the api middleware enables caching, invalidation, polling,
       // and other useful features of `rtk-query`.
       middleware: (getDefaultMiddleware) =>
