@@ -22,10 +22,8 @@ export default async function Product() {
       <div className="p-4 flex flex-col gap-4">
          <h1>All Product</h1>
          <div className="flex">
-            {isLoading && "loading..."}
-            {isError && "somthing went wrong"}
             <div className="flex flex-wrap gap-8">
-               {data?.products.map((product) => {
+               {data?.products.map((product: any) => {
                   return (
                      <div
                         key={product.id}
