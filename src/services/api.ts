@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { HYDRATE } from "next-redux-wrapper";
 
-const isHydrateAction = (action) => action.type === HYDRATE;
+const isHydrateAction = (action: { type: string }) => action.type === HYDRATE;
 
 export const api = createApi({
    reducerPath: "api",
@@ -11,7 +11,10 @@ export const api = createApi({
          "Content-Type": "application/json",
       },
    }),
-   extractRehydrationInfo(action, { reducerPath }: { reducerPath: string }) {
+   extractRehydrationInfo(
+      action: any,
+      { reducerPath }: { reducerPath: string }
+   ) {
       if (isHydrateAction(action)) {
          return action.payload[reducerPath];
       }
