@@ -11,7 +11,7 @@ export const api = createApi({
          "Content-Type": "application/json",
       },
    }),
-   extractRehydrationInfo(action, { reducerPath }) {
+   extractRehydrationInfo(action, { reducerPath }: { reducerPath: string }) {
       if (isHydrateAction(action)) {
          return action.payload[reducerPath];
       }
